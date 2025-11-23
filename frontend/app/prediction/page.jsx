@@ -1,102 +1,87 @@
-"use client"
+"use client";
 
-import { ArrowUp, Globe, MoreHorizontal, Plus, Telescope } from "lucide-react"
+import { ArrowUp } from "lucide-react"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 
 export default function ChatInput() {
 
-    
-    const router = useRouter()  // Next.js router
+    const router = useRouter();
 
-    const [value, setValue] = useState("")
-    const [Pedoctions, setPredictions] = useState([])
-    const [message, setMessage] = useState('')
+    const [value, setValue] = useState("");
+    const [Pedoctions, setPredictions] = useState([]);
+    const [message, setMessage] = useState("");
 
-    const token = localStorage.getItem('token')
-    const user_id = localStorage.getItem('user_id')
-
-    const getPredictionsList = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/Prediction/${user_id}`, {
-            method: 'Get',
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-
-        const data = await response.json()
-
-        if (data.message) {
-
-            setMessage(data.message)
-            setPredictions([])
-
-        } else {
-
-            setPredictions(data)
-            setMessage('')
-
-        }
-
-    }
+    const [token, setToken] = useState("");
+    const [user_id, setUserId] = useState("");
 
     useEffect(() => {
-        getPredictionsList()
-    }, [])
+        if (typeof window !== "undefined") {
+            setToken(localStorage.getItem("token") || "");
+            setUserId(localStorage.getItem("user_id") || "");
+        }
+    }, []);
+
+    const getPredictionsList = async () => {
+        const response = await fetch(
+            `http://127.0.0.1:8000/Prediction/${user_id}`,
+            {
+                method: "GET",
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.message) {
+            setMessage(data.message);
+            setPredictions([]);
+        } else {
+            setPredictions(data);
+            setMessage("");
+        }
+    };
+
+    useEffect(() => {
+        if (token && user_id) {
+            getPredictionsList();
+        }
+    }, [token, user_id]);
 
     const handleSubmit = async (e) => {
-
-        e.preventDefault()
+        e.preventDefault();
 
         try {
-
-            const response = await fetch('http://127.0.0.1:8000/Prediction', {
-
-                method: 'POST',
-
+            const response = await fetch("http://127.0.0.1:8000/Prediction", {
+                method: "POST",
                 headers: {
-
-                    'Content-Type': 'application/json',
-
-                    Authorization: `Bearer ${token}`
-
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
+                body: JSON.stringify({ user_text: value }),
+            });
 
-                body: JSON.stringify({ user_text: value })
-
-            })
-
-            const data = await response.json()
+            const data = await response.json();
 
             if (data.message) {
-
-                setMessage(data.message)
-
-                setValue('')
-
-                getPredictionsList() // Refresh list
-
+                setMessage(data.message);
+                setValue("");
+                getPredictionsList();
             }
-
         } catch (err) {
-
-            console.error('Error submitting prediction:', err)
-
-            setMessage('Something went wrong')
-
+            console.error("Error submitting prediction:", err);
+            setMessage("Something went wrong");
         }
-
-    }
+    };
 
     const Logout = (e) => {
-        e.preventDefault()
-        localStorage.removeItem('user_id')
-        localStorage.removeItem('token')
+        e.preventDefault();
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("token");
 
-        router.push('/login')
-
-    }
+        router.push("/login");
+    };
 
 
     return (

@@ -1,4 +1,4 @@
-# Backend SentimentApp
+sddf# Backend SentimentApp
 
 ### Technologies Utilisées
 ![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white&style=flat-square) ![FastAPI](https://img.shields.io/badge/-FastAPI-009688?logo=fastapi&logoColor=white&style=flat-square) ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4169E1?logo=postgresql&logoColor=white&style=flat-square) ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-000000?logo=sqlalchemy&logoColor=white&style=flat-square) ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white&style=flat-square)
@@ -63,3 +63,30 @@ Le backend sera alors accessible sur `http://localhost:8000`.
 ---
 
 Pour plus de détails, consultez les fichiers sources et les schémas présents dans le dossier `Schemas`.
+
+## Utilisation avec Docker
+
+Vous pouvez utiliser Docker pour lancer le backend de façon isolée.
+
+### Prérequis
+
+- Installer [Docker](https://www.docker.com/get-started)
+
+### Construire et lancer le conteneur
+
+Exécutez les commandes suivantes depuis le répertoire racine ou backend :
+
+```bash
+docker build -t sentimentapp-backend -f backend/Dockerfile .
+docker run -d -p 8000:8000 --name sentiment-backend sentimentapp-backend
+```
+
+Le backend sera accessible sur `http://localhost:8000`.
+
+### Arrêter et supprimer le conteneur
+
+```bash
+docker stop sentiment-backend
+docker rm sentiment-backend
+```
+docker run -d -p 8000:8000 --name sentiment-backend sentimentapp-backend

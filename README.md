@@ -43,3 +43,37 @@ SentimentApp est une application web comprenant un backend et un frontend. Le ba
 ---
 
 Ce projet permet à un utilisateur de s'inscrire, se connecter, envoyer du texte pour une prédiction via un modèle ML, et afficher les résultats de ces prédictions.
+
+## Utilisation avec Docker
+
+Vous pouvez lancer l'application complète (backend, frontend et base de données) en utilisant Docker et Docker Compose.
+
+### Prérequis
+
+- Installer [Docker](https://www.docker.com/get-started)
+- Installer [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Lancer avec Docker Compose
+
+Dans le répertoire racine du projet, exécutez :
+
+```bash
+docker-compose up --build
+```
+
+Cette commande va construire les images Docker et démarrer les conteneurs pour :
+
+- Backend (FastAPI, port 8000)
+- Frontend (Next.js, port 3000)
+- Base de données PostgreSQL (port 5432)
+
+Vous pourrez alors accéder à l'interface utilisateur via [http://localhost:3000](http://localhost:3000) et à l'API backend via [http://localhost:8000](http://localhost:8000).
+
+### Arrêter les conteneurs
+
+Pour arrêter tous les conteneurs, utilisez :
+
+```bash
+docker-compose down
+```
+docker-compose up --build

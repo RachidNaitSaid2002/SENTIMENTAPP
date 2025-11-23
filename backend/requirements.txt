@@ -4,7 +4,7 @@ sqlalchemy
 pydantic
 fastapi
 uvicorn
-psycopg2
+psycopg2-binary
 passlib
 argon2_cffi
 python-jose

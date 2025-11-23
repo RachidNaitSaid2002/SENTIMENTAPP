@@ -37,3 +37,31 @@ Vous pouvez également visiter [le dépôt GitHub de Next.js](https://github.com
 La façon la plus simple de déployer votre application Next.js est d’utiliser la [plateforme Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) des créateurs de Next.js.
 
 Consultez la [documentation de déploiement Next.js](https://nextjs.org/docs/app/building-your-application/deploying) pour plus de détails.
+
+## Utilisation avec Docker
+
+Vous pouvez construire et lancer le frontend dans un conteneur Docker.
+
+### Prérequis
+
+- Installer [Docker](https://www.docker.com/get-started)
+
+### Construire l'image et lancer le conteneur
+
+Depuis le répertoire racine ou frontend, exécutez :
+
+```bash
+docker build -t sentimentapp-frontend -f frontend/Dockerfile .
+docker run -d -p 3000:3000 --name sentiment-frontend sentimentapp-frontend
+```
+
+Le frontend sera accessible sur http://localhost:3000.
+
+### Arrêter et supprimer le conteneur
+
+```bash
+docker stop sentiment-frontend
+docker rm sentiment-frontend
+```
+docker rm sentiment-frontend
+docker run -d -p 3000:3000 --name sentiment-frontend sentimentapp-frontend

@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: sentimentapp-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=your_secret_key
+      - ALGORITHM=HS256
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: sentimentapp-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+
+  db:
+    image: postgres:15
+    container_name: sentimentapp-db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: sentimentdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
