@@ -9,8 +9,14 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - SECRET_KEY=your_secret_key
-      - ALGORITHM=HS256
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITHM=${ALGORITHM}
+      - user=${user}
+      - password=${password}
+      - host=${host}
+      - port=${port}
+      - database=${database}
     volumes:
       - ./backend:/app
     depends_on:
