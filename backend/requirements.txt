@@ -1,0 +1,10 @@
+huggingface_hub
+dotenv
+sqlalchemy
+pydantic
+fastapi
+uvicorn
+psycopg2
+passlib
+argon2_cffi
+python-jose
