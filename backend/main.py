@@ -23,18 +23,17 @@ app = FastAPI()
 db=SessionLocal()
 
 
-# Allow requests from your frontend
 origins = [
-    "http://localhost:3000",  # React app
-    "http://127.0.0.1:3000"   # sometimes necessary
+    "http://localhost:3000",  
+    "http://127.0.0.1:3000"   
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # or ["*"] to allow all origins (not recommended in production)
+    allow_origins=origins, 
     allow_credentials=True,
-    allow_methods=["*"],    # allow all HTTP methods
-    allow_headers=["*"],    # allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],    
 )
 
 # Hashed Password ------------------------------------------------------------ :
